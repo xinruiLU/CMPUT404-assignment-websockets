@@ -85,7 +85,7 @@ myWorld = World()
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
-    #????????????????????
+
     obj = {entity: data}
     send_all_json( obj )
 
@@ -108,7 +108,6 @@ def read_ws(ws,client):
                 packet = json.loads(msg)
                 for p in packet:
                     myWorld.set(p, packet[p])
-                #need send_all_json????????????????????/
                 send_all_json( packet )
             else:
                 break

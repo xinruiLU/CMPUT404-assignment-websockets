@@ -125,6 +125,8 @@ function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just modified!
+    obj = {[entity]: data};
+    socket.send(JSON.stringify(obj));
 }
 var counter = 0;
 function addEntityWithoutName(data) {
@@ -260,6 +262,25 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState==4) {
+                try {
+                    if (xhr.status==200) {
+                        //XXX: parse some JSON from the request!
+                        var obj = JSON.parse(xhr.responseText);
+                        for (o in obj){
+                          world[o] = obj[o];
+                        }
+                    }
+                }
+                catch(e) {
+                    alert('Error: ' + e.name);
+                }
+            }
+          };
+      xhr.open("GET", "http://" + host + "/world", false);
+      xhr.send();
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -268,6 +289,16 @@ function wsSetup() {
         try {
             debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?
+            //from slides
+            //https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/static/chat.html
+            message = JSON.parse(msg.data);
+            //addMessage(message["msg"]);
+            for (m in message){
+              world[m] = message[m];
+            }
+
+            drawNextFrame();
+
         } catch (e) {
             alert("socket on message: " + e);
         }
