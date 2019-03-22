@@ -60,3 +60,14 @@ Contributors
 * Abram Hindle
 * Cole Mackenzie
 * Xinrui Lu
+
+Reference
+================
+joshdeng:
+https://github.com/joshdeng/CMPUT404-assignment-websockets/blob/master/static/index.html
+Kulbear:
+https://github.com/Kulbear/CMPUT404-WebAppArchitect/blob/master/Assignment%205/static/index.html
+class slides:
+Eric Shepherd a2sheppy:
+https://github.com/mdn/samples-server/blob/master/s/websocket-chat/index.html
+https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/static/chat.html
